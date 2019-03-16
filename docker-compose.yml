@@ -1,0 +1,19 @@
+version: '2'
+services: 
+  db:
+    image: mongo
+    ports: 
+      - "27017:27017"
+    volumes:
+      - /data/db:/data/db
+    restart:
+      always
+
+  server:
+    build: .
+    ports: 
+      - "3000:3000"
+    depends_on: [ db ]
+    restart: always
+    environment:
+      NODE_ENV: production
